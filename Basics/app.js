@@ -1,6 +1,13 @@
 const express = require("express"); //Includes the express library
 const app = express(); //Creates an Express Application
 const router = require("./router");
+let bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
+
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 const port = 3000;
 
 /*** 
@@ -29,4 +36,17 @@ app.use(router); // Router Middleware
 app.listen(port, function () {
   //starts up the server on a specified port ('3000')
   console.log(`Example app listening on port ${port}!`);
+});
+
+
+app.get('/createCV', (req,res) => {
+  res.render('createCV');
+});
+
+
+app.post('/createCV', (req,res) => {
+  console.log(req.body.email);
+  const name = req.body.name;
+  const email = req.body.email;
+  res.render('cv',{name,email});
 });

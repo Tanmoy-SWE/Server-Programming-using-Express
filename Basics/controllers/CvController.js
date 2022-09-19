@@ -1,5 +1,6 @@
 const fs = require("fs");
 
+
 const getCV = (req, res) => {
   educations = fs.readFileSync("data/education", { encoding: "utf-8" });
   educations = JSON.parse(String(educations));
@@ -13,4 +14,13 @@ const getCV = (req, res) => {
   res.render("cv", { name: "Tasnim Ahmed", educations: edus });
 };
 
-module.exports = { getCV: getCV };
+const createCV = (req, res) => {  
+  res.render("createCV",{});
+};
+
+
+
+
+
+
+module.exports = { getCV: getCV, createCV:createCV };
