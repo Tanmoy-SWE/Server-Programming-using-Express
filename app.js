@@ -8,6 +8,7 @@ const router = require("./routes");
 const passport = require('passport');
 const session = require('express-session');
 const UserDetails = require('./models/userDetails');
+const { render } = require("express/lib/response");
 
 
 const app = express();
@@ -36,7 +37,9 @@ app.use(passport.session());
 passport.use(UserDetails.createStrategy());
 passport.serializeUser(UserDetails.serializeUser());
 passport.deserializeUser(UserDetails.deserializeUser());
-// UserDetails.register({username:'admin', active: false}, 'admin');
+//UserDetails.register({username:'admin', active: false}, 'admin');
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

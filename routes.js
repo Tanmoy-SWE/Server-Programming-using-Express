@@ -12,15 +12,18 @@ const passport = require('passport');
 router.get("/", homeController.getHome);
 router.get('/login', homeController.getLogin);
 router.get('/logout', homeController.logOut);
-router.get("/book-list", bookController.getBookList);
-router.get("/books", bookController.getBook);
+router.get("/book-list", connectEnsureLogin.ensureLoggedIn(), bookController.getBookList);
+router.get("/books",connectEnsureLogin.ensureLoggedIn(), bookController.getBook);
 router.get('/dashboard', connectEnsureLogin.ensureLoggedIn(), homeController.getDashboard);
 router.post("/books", bookController.postBook);
+router.get("/register", homeController.register);
 router.post(
     '/login',
     passport.authenticate('local', {
       failureRedirect: '/login',
       successRedirect: '/dashboard',
     }),homeController.postLogin);
+router.post("/register",homeController.registerUser);
+
 
 module.exports = router;
